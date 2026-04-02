@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Course;
+use App\Models\Language;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -12,7 +14,20 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $courses = Course::all();
+        $categories = Category::all();
+        $languages = Language::all();
+        return view('pages.home',[
+            "courses" => $courses,
+            "categories" => $categories,
+            "languages" => $languages
+        ]);
+    }
+
+    public function show(Course $course) {
+        return view('pages.details', [
+            "course" => $course,
+        ]);
     }
 
     /**
@@ -20,7 +35,12 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $languages = Language::all();
+        return view('pages.add-course', [
+            "categories" => $categories,
+            "languages" => $languages
+        ]);
     }
 
     /**
@@ -31,20 +51,18 @@ class CourseController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Course $course)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Course $course)
     {
-        //
+        $categories = Category::all();
+        $languages = Language::all();
+        return view('pages.edit-course', [
+            "categories" => $categories,
+            "languages" => $languages
+        ]);
     }
 
     /**
@@ -60,6 +78,7 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        $course->delete();
+        return redirect()->route('welcome');
     }
 }

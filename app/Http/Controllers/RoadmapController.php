@@ -12,7 +12,10 @@ class RoadmapController extends Controller
      */
     public function index()
     {
-        //
+        $roadmaps = Roadmap::all();
+        return view('pages.roadmaps', [
+            'roadmaps' => $roadmaps
+        ]);
     }
 
     /**
