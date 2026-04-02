@@ -25,7 +25,7 @@ return new class extends Migration
             
             // Admin Controls
             $table->boolean('is_published')->default(false); // So admins can draft roadmaps
-            
+            $table->integer('sort_order')->default(0);
             // Cached/Aggregate Data 
             $table->integer('duration_minutes')->default(0); 
             $table->integer('courses_count')->default(0); 

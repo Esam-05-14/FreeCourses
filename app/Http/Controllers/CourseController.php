@@ -14,7 +14,9 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
+        $courses = Course::with('language')->where('is_published', true)
+        ->latest()
+        ->paginate(9);;
         $categories = Category::all();
         $languages = Language::all();
         return view('pages.home',[
@@ -57,11 +59,13 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
+        
         $categories = Category::all();
         $languages = Language::all();
         return view('pages.edit-course', [
             "categories" => $categories,
-            "languages" => $languages
+            "languages" => $languages,
+            "course" => $course
         ]);
     }
 
