@@ -37,8 +37,8 @@
       </a>
       <!-- Nav Links -->
       <div class="hidden md:flex items-center gap-8">
-        <a href="#view2" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors">Courses</a>
-        <a href="#view4" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors">Roadmaps</a>
+        <a href="/courses" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors">Courses</a>
+        <a href="/roadmaps" class="text-sm font-medium text-slate-600 hover:text-indigo-600 transition-colors">Roadmaps</a>
       </div>
       <!-- Auth Buttons -->
       <div class="flex items-center gap-3">

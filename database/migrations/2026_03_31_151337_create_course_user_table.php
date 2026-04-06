@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('course_id')->constrained()->cascadeOnDelete();
 
             // Extra Data for Progress Tracking
-            $table->enum('status', ['favorited', 'in_progress', 'completed'])->default('favorited');
+            $table->enum('status', ['saved', 'in_progress', 'completed'])->default('saved');
             $table->timestamp('last_accessed_at')->useCurrent();
 
             // Prevent a user from having multiple tracking records for the exact same course

@@ -4,6 +4,8 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoadmapController;
+use App\Http\Controllers\DashboardController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -43,5 +45,14 @@ Route::middleware('auth')->group(function () {
 });
 
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Replace the default Breeze dashboard route with this:
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
+    // We will also need routes to actually save/start courses later!
+    Route::post('/courses/{course}/save', [DashboardController::class, 'saveCourse'])->name('courses.save');
+    Route::post('/courses/{course}/start', [DashboardController::class, 'startCourse'])->name('courses.start');
 
+    
+});
 require __DIR__.'/auth.php';

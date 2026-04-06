@@ -28,8 +28,8 @@ class Course extends Model
     public function roadmaps(){
         return $this->belongsToMany(Roadmap::class)->withPivot("sort_order");
     }
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class)->withPivot('status','last_accessed_at')->withTimestamps();
+        return $this->belongsToMany(User::class)->withPivot('status','last_accessed_at')->withTimestamps();
     }
 }
