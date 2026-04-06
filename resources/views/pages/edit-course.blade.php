@@ -123,6 +123,28 @@
             @error('thumbnail') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
           </div>
         </div>
+        <div class="mb-5 border-t border-slate-100 pt-5">
+          <label class="block text-xs font-semibold text-slate-700 mb-3">Categories <span class="text-rose-500">*</span></label>
+          
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            @foreach($categories as $category)
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" name="categories[]" value="{{ $category->id }}" 
+                  class="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                  
+                  {{-- 
+                    This complex line checks if the box should be ticked. 
+                    It looks at the old() session data first (if validation failed).
+                    If no old data exists, it checks if the course already has this category saved in the database.
+                  --}}
+                  {{ in_array($category->id, old('categories', isset($course) ? $course->categories->pluck('id')->toArray() : [])) ? 'checked' : '' }}
+                />
+                <span class="text-sm text-slate-700">{{ $category->name }}</span>
+              </label>
+            @endforeach
+          </div>
+          @error('categories') <p class="mt-2 text-xs text-rose-500">{{ $message }}</p> @enderror
+        </div>
 
         <div class="mb-5">
           <label for="description" class="block text-xs font-semibold text-slate-700 mb-1.5">Description</label>

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\storeCourseRequest;
+use App\Http\Requests\updateCourseRequest;
 use App\Models\Category;
 use App\Models\Course;
 use App\Models\Language;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -48,9 +51,20 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(storeCourseRequest $request)
     {
-        //
+        
+        $validated = $request->validated();
+        $categoryIds = $validated['categories'];
+        unset($validated['categories']);
+
+        // 2. Create the course
+        $course = Course::create($validated);
+
+        // 3. Attach the Many-to-Many relationship
+        $course->categories()->attach($categoryIds);
+        return redirect()->route('courses.show', ['course' => $course]);
+
     }
 
 
@@ -72,9 +86,20 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Course $course)
+    public function update(updateCourseRequest $request, Course $course)
     {
-        //
+    // dd($course);    
+        $validated = $request->validated();
+            // dd($validated);
+        $validated['slug'] = $course->slug;
+        $categoryIds = $validated['categories'];
+        unset($validated['categories']);
+
+        
+        $course->update($validated);
+        $course->categories()->sync($categoryIds);
+
+        return redirect()->route('courses.show', ['course' => $course->id]);
     }
 
     /**

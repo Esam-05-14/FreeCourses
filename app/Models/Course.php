@@ -10,8 +10,9 @@ class Course extends Model
 {
     /** @use HasFactory<\Database\Factories\CourseFactory> */
     use HasFactory;
+    
 
-    // protected $fillable = ["title", "description", "ingredients", "instructions", "cooking_time", "difficulty", "image_path", "user_id"];
+    protected $fillable = ["title", "description", "provider","slug", "language_id", "url", "difficulty", "duration", "view_count"];
 
     public function language(){
         return $this->belongsTo(Language::class);

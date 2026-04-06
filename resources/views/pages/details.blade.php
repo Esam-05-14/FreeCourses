@@ -101,6 +101,8 @@
       </div>
     </div>
 
+    
+
     <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 mb-8">
       <h2 class="text-base font-bold text-slate-900 mb-3">About this Course</h2>
       <div class="text-sm text-slate-600 leading-relaxed whitespace-pre-wrap">{{ $course->description }}</div>

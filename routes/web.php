@@ -16,7 +16,7 @@ Route::get('/courses', [CourseController::class, 'index'])->name('courses.index'
 Route::get('/courses/{course}', [CourseController::class, 'show'])->name("courses.show");
 
 Route::post('/courses/', [CourseController::class, 'store'])->name("courses.store");
-Route::put('/courses/', [CourseController::class, 'update'])->name("courses.update");
+Route::put('/courses/{course}', [CourseController::class, 'update'])->name("courses.update");
 Route::delete('/courses/{course}', [AdminDashboardController::class, 'destroy'])->name("courses.destroy");
 
 
@@ -36,14 +36,12 @@ Route::get('/admin/{course}/edit', [CourseController::class, 'edit'])->name('cou
 
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 require __DIR__.'/auth.php';
