@@ -15,18 +15,47 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $courses = Course::with('language')->where('is_published', true)
-        ->latest()
-        ->paginate(9);;
-        $categories = Category::all();
-        $languages = Language::all();
-        return view('pages.home',[
-            "courses" => $courses,
-            "categories" => $categories,
-            "languages" => $languages
-        ]);
+        // 1. Start a base query for published courses, eager loading relationships
+        $query = Course::with(['language', 'categories'])->where('is_published', true);
+
+        // 2. Handle Search (checks title, description, and provider)
+        $query->when($request->filled('search'), function ($q) use ($request) {
+            $searchTerm = '%' . $request->search . '%';
+            $q->where(function ($subQuery) use ($searchTerm) {
+                $subQuery->where('title', 'like', $searchTerm)
+                         ->orWhere('description', 'like', $searchTerm)
+                         ->orWhere('provider', 'like', $searchTerm);
+            });
+        });
+
+        // 3. Handle Category Filter (checks the pivot table!)
+        $query->when($request->filled('category'), function ($q) use ($request) {
+            $q->whereHas('categories', function ($subQuery) use ($request) {
+                // Allows matching by ID or Slug depending on how the frontend passes it
+                $subQuery->where('slug', $request->category)
+                         ->orWhere('categories.id', $request->category); 
+            });
+        });
+
+        // 4. Handle Provider Filter
+        $query->when($request->filled('provider'), function ($q) use ($request) {
+            $q->where('provider', $request->provider);
+        });
+
+        // 5. Handle Difficulty Filter
+        $query->when($request->filled('difficulty'), function ($q) use ($request) {
+            $q->where('difficulty', $request->difficulty);
+        });
+
+        // 6. Execute query, paginate, and append query strings so filters survive page 2, 3, etc.
+        $courses = $query->latest()->paginate(12)->withQueryString();
+
+        // Fetch categories to populate the dropdown filter
+        $categories = Category::orderBy('name')->get();
+
+        return view('pages.home', compact('courses', 'categories'));
     }
 
     public function show(Course $course) {

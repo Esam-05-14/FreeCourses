@@ -7,12 +7,10 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoadmapController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class , 'index']);
 
 //Route::resource('/courses', CourseController::class);
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
