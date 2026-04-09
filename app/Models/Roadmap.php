@@ -14,4 +14,11 @@ class Roadmap extends Model
                     ->withPivot('sort_order')
                     ->orderBy('pivot_sort_order', 'asc');
     }
+
+    protected $fillable = [
+    'title', 'slug', 'description', 'thumbnail', 
+    'url', 'is_published', 'sort_order', 'duration_minutes', 'courses_count'
+];
+
+
 }

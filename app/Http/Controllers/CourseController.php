@@ -108,6 +108,6 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         $course->delete();
-        return redirect()->route('welcome');
+        return redirect()->route('pages.home');
     }
 }

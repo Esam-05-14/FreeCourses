@@ -39,7 +39,7 @@
             </span>
         </div>
         
-        <a href="/roadmaps/{{ $roadmap->slug }}" class="mt-auto flex items-center justify-center gap-2 w-full bg-indigo-600 hover:bg-indigo-700 transition-colors text-white text-sm font-semibold py-2.5 rounded-lg">
+        <a href="{{ route('roadmaps.show', $roadmap) }}" class="mt-auto flex items-center justify-center gap-2 w-full bg-indigo-600 hover:bg-indigo-700 transition-colors text-white text-sm font-semibold py-2.5 rounded-lg">
             View Path
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </a>

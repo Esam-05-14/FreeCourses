@@ -12,7 +12,7 @@ class updateRoadmapeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,17 @@ class updateRoadmapeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            
+        'title' => 'required|string|max:255',
+        'slug' => 'required|string|unique:roadmaps,slug',
+        'description' => 'nullable|string',
+        'thumbnail' => 'nullable|url',
+        'url' => 'nullable|url',
+        'is_published' => 'boolean',
+        'sort_order' => 'integer',
+        'courses' => 'nullable|array', // The selected course IDs
+        'course_orders' => 'nullable|array', // The order numbers keyed by course ID
+    
         ];
     }
 }
