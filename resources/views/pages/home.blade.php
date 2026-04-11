@@ -162,6 +162,7 @@
                         <option value="YouTube" {{ request('provider') == 'YouTube' ? 'selected' : '' }}>YouTube</option>
                         <option value="Coursera" {{ request('provider') == 'Coursera' ? 'selected' : '' }}>Coursera</option>
                         <option value="Udemy" {{ request('provider') == 'Udemy' ? 'selected' : '' }}>Udemy</option>
+                        <option value="FreeCodeCamp" {{ request('provider') == 'FreeCodeCamp' ? 'selected' : '' }}>FreeCodeCamp</option>
                     </select>
                 </div>
 

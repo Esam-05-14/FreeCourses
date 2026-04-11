@@ -45,13 +45,22 @@
                             
                             <div class="p-5 flex flex-col flex-grow">
                                 <h3 class="font-bold text-slate-900 line-clamp-2 mb-4">
-                                    <a href="{{ route('courses.show', $course->slug) }}" class="hover:text-indigo-600 transition-colors">{{ $course->title }}</a>
+                                    <a href="{{ route('courses.show', $course) }}" class="hover:text-indigo-600 transition-colors">{{ $course->title }}</a>
                                 </h3>
                                 
                                 <div class="mt-auto">
                                     <div class="flex justify-between text-xs text-slate-500 mb-1.5 font-medium">
                                         <span>Learning in progress...</span>
                                         <span class="text-indigo-600">Incomplete</span>
+                                        <div class="mt-4 pt-4 border-t border-slate-100 flex justify-end">
+                                            <form action="{{ route('courses.complete', $course->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-md transition-colors flex items-center gap-1.5">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                                    Mark Complete
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                     <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
                                         <div class="bg-indigo-600 h-2 rounded-full w-1/3"></div>
@@ -82,6 +91,39 @@
                 </div>
             @endif
         </div>
+        <div class="mt-12 border-t border-slate-200 pt-10">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+            <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+            Completed ({{ $completedCourses->count() }})
+        </h2>
+    </div>
+
+    @if($completedCourses->isEmpty())
+        <p class="text-slate-500 italic text-sm">Finish a course to see it listed here!</p>
+    @else
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 opacity-75 hover:opacity-100 transition-opacity">
+            @foreach($completedCourses as $course)
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex items-center gap-4">
+                    <div class="w-16 h-12 bg-slate-200 rounded overflow-hidden shrink-0">
+                        @if($course->thumbnail)
+                            <img src="{{ $course->thumbnail }}" class="w-full h-full object-cover grayscale" alt="thumbnail">
+                        @endif
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-sm line-clamp-1">
+                            <a href="{{ route('courses.show', $course->slug) }}" class="hover:text-indigo-600 transition-colors">{{ $course->title }}</a>
+                        </h3>
+                        <p class="text-xs text-emerald-600 font-semibold flex items-center gap-1 mt-0.5">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                            Finished
+                        </p>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @endif
+</div>
 
     </div>
 </div>

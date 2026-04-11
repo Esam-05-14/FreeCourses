@@ -1,58 +1,80 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# AWP Server-side home assignment - Phase 2
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Video link
 
-## About Laravel
+[Student name (neptun code) video](https://ikelte-my.sharepoint.com/:v:/g/personal/c5o62l_inf_elte_hu/IQAJ0zVw7NqmQrccX2xRYy-LAQOpuQ3iwx88tU5BUeD_BAE?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=zVo67C)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Statement
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Student's name: Esam Al-shameri
+Student's Neptun code: C5O62L
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+This solution was submitted and created by the student named above 
+for the "Server-side home assignment" assessment of the Advanced web programming 
+course.
 
-## Learning Laravel
+I hereby declare that this solution is my own work. 
+I have not copied or used solutions from third parties. 
+I did not forward my solution to other students, nor did I publish it anywhere. 
+I understand that According to Section Section 377/A of ELTE Academic Regulations 
+for Students, I will not be able complete the subject if I use an any disallowed 
+aid or provide unauthorised assistance to another student.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+ELTE Academic Regulations for Students, Regulations on the Faculty of Informatics, 
+Section 377/A: "A student who uses aids other than those specified by the instructor 
+or provides unauthorised assistance to another student during an evaluation 
+(exam, test, homework assignment) requiring the preparation of a computer programme 
+or programme module is in violation of the academic rules, and shall not be 
+permitted to complete the subject in the given semester and therefore shall not 
+obtain the credit awarded for the subject."
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Budapest, 2026
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Project Requirements – Checklist
 
-## Agentic Development
+### Database Requirements
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+- [X] At least 5 database tables with meaningful relationships and clear responsibilities
+- [X] At least one 1‑to‑N (one‑to‑many) relationship implemented and actively used
+- [X] At least one N‑to‑N (many‑to‑many) relationship with a proper pivot table
+- [X] Consistent use of primary keys, foreign keys, and unique constraints
+- [X] At least one table with 10 or more fields (complex data modeling)
+- [X] Schema must include various data types:
+  - [X] integer
+  - [X] boolean
+  - [X] enum
+  - [X] timestamp
+  - [X] date
 
-```bash
-composer require laravel/boost --dev
+### Frontend Pages
 
-php artisan boost:install
-```
+- [X] Responsive, visually appealing UI (usable on desktop and mobile)
+- [X] Use of a component library (Bootstrap, Tailwind, Flowbite, etc.)
+- [X] At least 10 distinct pages with unique functionality or content
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### CRUD Functionality
 
-## Contributing
+- [X] CRUD implemented for an entity on the “N” side of a one‑to‑many relationship
+- [X] CRUD implemented for an entity on the “N” side of a many‑to‑many relationship
+- [X] Forms must include multiple input types:
+  - [X] Checkbox list
+  - [X] Radio buttons
+  - [X] Select dropdown
+  - [ ] File upload component -- it deosn't have but it is easy to adapt it
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Authentication & Authorization
 
-## Code of Conduct
+- [X] Full authentication and authorization using Laravel’s built‑in tools
+- [X] Logged‑in users cannot access protected data belonging to other users
+- [X] Sensitive actions must be controlled by roles or permissions
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Admin Interfaces
 
-## Security Vulnerabilities
+- [X] Administrator user‑management page(s)
+- [X] Full CRUD management for at least one non‑user entity
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Technology Requirements
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- [X] Laravel
+- [X] Laravel Breeze for authentication scaffolding
+- [X] SQLite as the database engine

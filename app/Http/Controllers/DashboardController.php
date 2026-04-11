@@ -28,7 +28,13 @@ class DashboardController extends Controller
                              ->orderByPivot('created_at', 'desc')
                              ->get();
 
-        return view('dashboard', compact('inProgressCourses', 'savedCourses'));
+        $completedCourses = $user->courses()
+                                 ->with('language')
+                                 ->wherePivot('status', 'completed')
+                                 ->orderByPivot('updated_at', 'desc')
+                                 ->get();
+
+        return view('dashboard', compact('inProgressCourses', 'savedCourses', 'completedCourses'));
     }
 
     public function saveCourse(Request $request, Course $course)
@@ -53,6 +59,19 @@ class DashboardController extends Controller
 
         // When they start a course, it's a good idea to redirect them to their dashboard
         return redirect()->route('dashboard')->with('success', 'Course started! Good luck!');
+    }
+
+    public function completeCourse(Request $request, Course $course)
+    {
+        // Update the pivot table status to 'completed'
+        $request->user()->courses()->syncWithoutDetaching([
+            $course->id => [
+                'status' => 'completed',
+                'last_accessed_at' => now()
+            ]
+        ]);
+
+        return back()->with('success', 'Congratulations! You have completed ' . $course->title . ' 🎉');
     }
 
 }

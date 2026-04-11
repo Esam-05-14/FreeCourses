@@ -29,7 +29,7 @@
                             <div>
                                 <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-1 block">Step {{ $index + 1 }}</span>
                                 <h3 class="font-bold text-slate-900 leading-tight mb-2">
-                                    <a href="{{ route('courses.show', $course->slug ?? $course->id) }}" class="hover:text-indigo-600 transition-colors">
+                                    <a href="{{ route('courses.show', $course) }}" class="hover:text-indigo-600 transition-colors">
                                         {{ $course->title }}
                                     </a>
                                 </h3>
