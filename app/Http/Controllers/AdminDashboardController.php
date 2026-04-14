@@ -27,17 +27,53 @@ class AdminDashboardController extends Controller
 
         return view('pages.admin.dashboard', compact('stats', 'recentCourses', 'recentRoadmaps'));
     }
-    public function roadmaps()
+    public function roadmaps(Request $request)
     {
+        $query = Roadmap::with('courses');
+
+        // 2. Handle Search (checks title, description, and provider)
+        $query->when($request->filled('search'), function ($q) use ($request) {
+            $searchTerm = '%' . $request->search . '%';
+            $q->where(function ($subQuery) use ($searchTerm) {
+                $subQuery->where('title', 'like', $searchTerm);
+            });
+        });
+        $query->when($request->filled('provider'), function ($q) use ($request) {
+            $q->where('provider', $request->provider);
+        });
         // 1. Gather High-Level Stats for the top cards
-        $roadmaps = Roadmap::all();
+        $roadmaps = $query->get();
 
         return view('pages.admin.roadmaps', compact('roadmaps'));
     }
-    public function courses()
+    public function courses(Request $request)
     {
-        // 1. Gather High-Level Stats for the top cards
-        $courses = Course::with('language')->latest()->paginate(10);
+        
+    $query = Course::with(['language', 'categories']);
+
+        // 2. Handle Search (checks title, description, and provider)
+        $query->when($request->filled('search'), function ($q) use ($request) {
+            $searchTerm = '%' . $request->search . '%';
+            $q->where(function ($subQuery) use ($searchTerm) {
+                $subQuery->where('title', 'like', $searchTerm)
+                         ->orWhere('description', 'like', $searchTerm)
+                         ->orWhere('provider', 'like', $searchTerm);
+            });
+        });
+
+        $query->when($request->filled('provider'), function ($q) use ($request) {
+            $q->where('provider', $request->provider);
+        });
+
+        // 4. Handle Provider Filter
+        $query->when($request->filled('is_published'), function ($q) use ($request) {
+            $q->where('is_published', $request->is_published);
+        });
+
+
+        // 6. Execute query, paginate, and append query strings so filters survive page 2, 3, etc.
+        $courses = $query->latest()->paginate(12)->withQueryString();
+
 
    
 

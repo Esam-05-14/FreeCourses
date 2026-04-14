@@ -17,7 +17,7 @@ class RoadmapController extends Controller
      */
     public function index()
     {
-        $roadmaps = Roadmap::all();
+        $roadmaps = Roadmap::where('is_published', true)->with('courses')->get();
         return view('pages.roadmaps', [
             'roadmaps' => $roadmaps
         ]);
@@ -45,7 +45,7 @@ class RoadmapController extends Controller
         $roadmap = Roadmap::create(Arr::except($validated, ['courses', 'course_orders']));
         $this->syncCoursesAndAggregates($roadmap, $request->input('courses', []), $request->input('course_orders', []));
 
-        return redirect()->route('roadmaps.index')->with('success', 'Roadmap created!');
+        return redirect()->route('admin.roadmaps')->with('success', 'Roadmap created!');
     }
 
     /**
@@ -80,7 +80,7 @@ class RoadmapController extends Controller
         $roadmap->update(Arr::except($validated, ['courses', 'course_orders']));
         $this->syncCoursesAndAggregates($roadmap, $request->input('courses', []), $request->input('course_orders', []));
 
-        return redirect()->route('roadmaps.index')->with('success', 'Roadmap created!');
+        return redirect()->route('admin.roadmaps')->with('success', 'Roadmap updated!');
     }
 
     /**
@@ -89,7 +89,7 @@ class RoadmapController extends Controller
     public function destroy(Roadmap $roadmap)
     {
         $roadmap->delete();
-        return redirect()->route('roadmaps.index')->with('success', 'Roadmap deleted!');
+        return redirect()->route('admin.roadmaps')->with('success', 'Roadmap deleted!');
     }
 
     /**

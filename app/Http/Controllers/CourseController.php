@@ -92,7 +92,7 @@ class CourseController extends Controller
 
         // 3. Attach the Many-to-Many relationship
         $course->categories()->attach($categoryIds);
-        return redirect()->route('courses.show', ['course' => $course]);
+        return redirect()->route('admin.courses')->with('success', 'Course created successfully!');
 
     }
 
@@ -128,7 +128,7 @@ class CourseController extends Controller
         $course->update($validated);
         $course->categories()->sync($categoryIds);
 
-        return redirect()->route('courses.show', ['course' => $course->id]);
+        return redirect()->route('admin.courses')->with('success', 'Course updated successfully!');
     }
 
     /**
@@ -137,6 +137,6 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         $course->delete();
-        return redirect()->back();
+        return redirect()->route('admin.courses')->with('success', 'Course deleted successfully!');
     }
 }

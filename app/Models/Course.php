@@ -12,7 +12,7 @@ class Course extends Model
     use HasFactory;
     
 
-    protected $fillable = ["title", "description", "provider","slug", "language_id", "url", "difficulty", "duration", "view_count"];
+    protected $fillable = ["title", "description", "provider","slug", "language_id", "url", "difficulty", "duration", "view_count", 'is_published', 'is_featured'];
 
     public function language(){
         return $this->belongsTo(Language::class);

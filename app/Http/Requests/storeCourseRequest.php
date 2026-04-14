@@ -38,18 +38,18 @@ class storeCourseRequest extends FormRequest
     //         $table->timestamps();
         return [
             'title' => 'required|string|max:255',
-        'slug' => 'required|string|unique:courses,slug|max:255',
-        'url' => 'required|url',
-        'provider' => 'required|string',
-        'language_id' => 'required|exists:languages,id',
-        'difficulty' => 'required|in:Beginner,Intermediate,Advanced',
-        'duration' => 'nullable|integer|min:0',
-        'thumbnail' => 'nullable|url', // <-- Make sure this expects a URL, not an image file!
-        'description' => 'nullable|string',
-        'is_featured' => 'boolean',
-        'is_published' => 'boolean',
-        'categories' => 'required|array|min:1', // Ensures they pick at least one category
-    'categories.*' => 'exists:categories,id',
+            'slug' => 'required|string|unique:courses,slug|max:255',
+            'url' => 'required|url',
+            'provider' => 'required|string',
+            'language_id' => 'required|exists:languages,id',
+            'difficulty' => 'required|in:Beginner,Intermediate,Advanced',
+            'duration' => 'nullable|integer|min:0',
+            'thumbnail' => 'nullable|url', // <-- Make sure this expects a URL, not an image file!
+            'description' => 'nullable|string',
+            'is_featured' => 'boolean',
+            'is_published' => 'boolean',
+            'categories' => 'required|array|min:1', // Ensures they pick at least one category
+            'categories.*' => 'exists:categories,id',
         ];
     }
 }
